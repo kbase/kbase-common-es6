@@ -1,8 +1,5 @@
 define([
-    'bluebird'
-], function (
-    Promise
-) {
+], function () {
     'use strict';
 
     class Job {
