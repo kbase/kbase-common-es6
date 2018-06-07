@@ -127,8 +127,36 @@ define([
         if (result1 === name && result2 === null) {
             test.success();
         } else {
-            return test.fail();
+            test.fail();
         }
+    }
+
+    function testIncrement(test) {
+        let params = [
+            {
+                prop: 'goals',
+                initial: 0,
+                expected: 1
+            },
+            {
+                prop: 'goals',
+                initial: -1,
+                expected: 0
+            },
+        ];
+
+        params.forEach((param) => {   
+            let data = {
+                goals: param.initial
+            }; 
+            props.incrProp(data, param.prop);
+            let value = props.getProp(data, param.prop);
+            if (value === param.expected) {
+                test.success();
+            } else {
+                test.fail();
+            }
+        });
     }
 
     return {
@@ -136,6 +164,7 @@ define([
         testGetPropPath, 
         testSetThenGetProp, 
         testSetThenDeleteThenGetProp,
-        testSetThenHasProp
+        testSetThenHasProp,
+        testIncrement
     };
 });
