@@ -21,7 +21,11 @@ define([
         let data = [
             {
                 input: '1.2.3',
-                expected: [1, 2, 3]
+                expected: [1, 2, 3, undefined]
+            },
+            {
+                input: '1.2.3-beta1',
+                expected: [1, 2, 3, 'beta1']
             }
         ];
 
@@ -41,29 +45,54 @@ define([
     function testComparison(test) {
         let data = [
             {
-                base: '1.2.3',
-                version: '1.2.3',
+                actualVersion: '1.2.3',
+                desiredVersion: '1.2.3',
                 expected: true
             },
             {
-                base: '1.2.3',
-                version: '1.2.4',
+                actualVersion: '1.2.3',
+                desiredVersion: '1.2.4',
                 expected: 'patch-too-low'
             },
             {
-                base: '1.2.3',
-                version: '1.3.3',
+                actualVersion: '1.2.3',
+                desiredVersion: '1.3.3',
                 expected: 'minor-too-low'
             },
             {
-                base: '2.2.3',
-                version: '1.2.4',
+                actualVersion: '2.2.3',
+                desiredVersion: '1.2.4',
                 expected: 'major-incompatible'
             },
+            {
+                actualVersion: '1.2.3-beta',
+                desiredVersion: '1.2.3-beta',
+                expected: true
+            },
+            {
+                actualVersion: '1.2.3-beta2',
+                desiredVersion: '1.2.3-beta1',
+                expected: true
+            },
+            {
+                actualVersion: '1.2.3-beta',
+                desiredVersion: '1.2.3-alpha',
+                expected: true
+            },
+            {
+                actualVersion: '1.2.3-alpha',
+                desiredVersion: '1.2.3-beta',
+                expected: 'prerelease-too-low'
+            },
+            {
+                actualVersion: '1.2.3-alpha1',
+                desiredVersion: '1.2.3-alpha2',
+                expected: 'prerelease-too-low'
+            }
         ];
 
         data.forEach((datum) => {
-            let result = semver.semverIsAtLeast(datum.base, datum.version);
+            let result = semver.semverIsAtLeast(datum.actualVersion, datum.desiredVersion);
             if (result === datum.expected) {
                 test.success();
             } else {
