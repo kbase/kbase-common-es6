@@ -49,8 +49,23 @@ define([], function () {
             return 'patch-too-low';
         }
         
-        if (patch === patchBase && preRelease > preReleaseBase) {
-            return 'prerelease-too-low';
+        if (patch === patchBase) {
+            if (!preReleaseBase) {
+                if (!preRelease) {
+                    return true;
+                } else {
+                    return true;
+                }
+            } else {
+                if (!preRelease) {
+                    return 'prerelease-makes-patch-too-low';
+                } else {
+                    if (preRelease > preReleaseBase) {
+                        return 'prerelease-too-low';
+                    }
+                }
+            }
+           
         }
 
         return true;

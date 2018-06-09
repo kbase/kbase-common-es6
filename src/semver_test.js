@@ -88,6 +88,16 @@ define([
                 actualVersion: '1.2.3-alpha1',
                 desiredVersion: '1.2.3-alpha2',
                 expected: 'prerelease-too-low'
+            },
+            {
+                actualVersion: '1.2.3-alpha1',
+                desiredVersion: '1.2.3',
+                expected: 'prerelease-makes-patch-too-low'
+            },
+            {
+                actualVersion: '1.2.3',
+                desiredVersion: '1.2.3-alpha1',
+                expected: true
             }
         ];
 
