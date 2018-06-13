@@ -3,7 +3,11 @@ define([], function () {
 
     function parseSemver(semver) {
         let semverRegex = /^([\d]+)\.([\d]+)\.([\d]+)(?:-(.*))?$/;
-        let [, major, minor, patch, preRelease] = semverRegex.exec(semver);
+        let parsed = semverRegex.exec(semver);
+        if (!parsed) {
+            throw new Error('Not a semver string: ' + semver);
+        }
+        let [, major, minor, patch, preRelease] = parsed;
         return [parseInt(major, 10), parseInt(minor, 10), parseInt(patch, 10), preRelease];
     }
 
