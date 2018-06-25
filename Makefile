@@ -1,9 +1,10 @@
 test: 
 	@echo "Running unit tests..."
 	@if [ ! -d "instrumented" ]; then mkdir instrumented; fi
-	@rm -f instrumented/*
+	@rm -rf instrumented/*
 	@./node_modules/.bin/istanbul instrument ./src --output ./instrumented --save-baseline --x "*_test.js"
-	@cp src/*_test.js instrumented
+	@rsync -zarv  --prune-empty-dirs --include "*/"  --include="*_test.js" --exclude="*" src/ instrumented/
+
 	@node test/unit/run-tests.js
 
 .PHONY: all test build

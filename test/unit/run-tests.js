@@ -2,16 +2,16 @@
 /*eslint {strict: ['error', 'global']}*/
 'use strict';
 
-let Promise = require('bluebird');
-let requirejs = Promise.promisify(require('requirejs'));
-let process = require('process');
-let util = require('util');
-let istanbul = require('istanbul');
-let glob = Promise.promisify(require('glob').Glob);
-let path = require('path');
+const Promise = require('bluebird');
+const requirejs = Promise.promisify(require('requirejs'));
+const process = require('process');
+const util = require('util');
+const istanbul = require('istanbul');
+const glob = Promise.promisify(require('glob').Glob);
+const path = require('path');
 
 // let reporter = require('./reporter');
-let test = require('./testRunner');
+const test = require('./testRunner');
 
 requirejs.config({
     baseUrl: './instrumented',
@@ -27,19 +27,19 @@ glob('*_test.js', {
     nodir: true
 })
     .then((testFiles) => {
-        let modules = testFiles.map((file) => {
+        const modules = testFiles.map((file) => {
             return path.basename(file, '.js');
         });
         return requirejs(modules, function (
             stateTests,
             propsTests
         ) {
-            let collector = new istanbul.Collector();
-            let reporter = new istanbul.Reporter();
-            let instrumenter = new istanbul.Instrumenter();
-            let report = istanbul.Report.create('text');
+            const collector = new istanbul.Collector();
+            const reporter = new istanbul.Reporter();
+            const instrumenter = new istanbul.Instrumenter();
+            const report = istanbul.Report.create('text');
 
-            let testRunner = new test.UnitTestRunner({
+            const testRunner = new test.UnitTestRunner({
                 testModules: [propsTests, stateTests],
                 coverage: {
                     collector, reporter, instrumenter, report
@@ -52,7 +52,7 @@ glob('*_test.js', {
             if (testRunner.anyFailureType()) {
                 print('one or more tests failed, errored, or were incomplete');
                 process.exit(1);
-            } 
+            }
             print('all tests finished successfully or were skipped');
             process.exit(0);
         });

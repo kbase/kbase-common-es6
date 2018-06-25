@@ -1,45 +1,45 @@
 /*eslint-env node*/
-let chalk = require('chalk');
-let util = require('util');
+const chalk = require('chalk');
+const util = require('util');
 
-class SuiteStart {
-    constructor({name, fullname, tests, childSuites, testCounts}) {
-        this.name = name; 
-        this.fullname = fullname;
-        this.tests = tests;
-        this.childSuites = childSuites;
-        this.testCounts = testCounts;
-    }
-}
+// class SuiteStart {
+//     constructor({name, fullname, tests, childSuites, testCounts}) {
+//         this.name = name;
+//         this.fullname = fullname;
+//         this.tests = tests;
+//         this.childSuites = childSuites;
+//         this.testCounts = testCounts;
+//     }
+// }
 
-class SuiteEnd extends SuiteStart {
-    constructor(arg) {
-        super(arg);
-        let {status, testCounts, runtime} = arg;
-        this.status = status;
-        this.testCounts = testCounts;
-        this.runtime = runtime;
-    }
-}
+// class SuiteEnd extends SuiteStart {
+//     constructor(arg) {
+//         super(arg);
+//         const {status, testCounts, runtime} = arg;
+//         this.status = status;
+//         this.testCounts = testCounts;
+//         this.runtime = runtime;
+//     }
+// }
 
-class TestStart {
-    constructor({name, suiteName, fullName}) {
-        this.name = name; 
-        this.suiteName = suiteName;
-        this.fullName = fullName;
-    }
-}
+// class TestStart {
+//     constructor({name, suiteName, fullName}) {
+//         this.name = name;
+//         this.suiteName = suiteName;
+//         this.fullName = fullName;
+//     }
+// }
 
-class TestEnd extends TestStart {
-    constructor(arg) {
-        super(arg);
-        let {status, runtime, errors, assertions} = arg;
-        this.status = status;
-        this.runtime = runtime;
-        this.errors = errors; 
-        this.assertions = assertions;
-    }
-}
+// class TestEnd extends TestStart {
+//     constructor(arg) {
+//         super(arg);
+//         const {status, runtime, errors, assertions} = arg;
+//         this.status = status;
+//         this.runtime = runtime;
+//         this.errors = errors;
+//         this.assertions = assertions;
+//     }
+// }
 
 
 
@@ -48,8 +48,8 @@ class Reporter {
 
     }
 
-    suiteStart(arg) {
-        
+    suiteStart() {
+
     }
 
     reportTest(report) {

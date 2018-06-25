@@ -18,12 +18,12 @@ define([
                     return undefined;
                 }
             }
-            let value = this.params[name];
-            let valueType = typeof value;
+            const value = this.params[name];
+            const valueType = typeof value;
             if (valueType !== type) {
                 throw new Error('Parameter ' + name + ' is not of the expected type: ' + type);
             }
-    
+
             return value;
         }
     }

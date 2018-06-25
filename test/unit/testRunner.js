@@ -2,9 +2,8 @@
 /*eslint {strict: ['error', 'global']} */
 'use strict';
 
-let util = require('util');
-let chalk = require('chalk');
-let Promise = require('bluebird');
+const util = require('util');
+const chalk = require('chalk');
 
 // class Test {
 //     constructor(name, test, reporter) {
@@ -21,9 +20,9 @@ let Promise = require('bluebird');
 //             failure: failure,
 //             exception: exception
 //         });
-           
+
 //     }
-    
+
 //     run() {
 //         let name = this.name;
 //         let fun = this.testFun;
@@ -109,9 +108,11 @@ class Test {
         this.finish();
         this.header();
         process.stdout.write(util.format('  %s\n', chalk.red('fail')));
-        Object.keys(info).forEach((key) => {
-            print('    ' + key + ': ' + info[key]);
-        });
+        if (info) {
+            Object.keys(info).forEach((key) => {
+                print('    ' + key + ': ' + info[key]);
+            });
+        }
         this.resolution = testState.failure;
     }
 
@@ -119,6 +120,7 @@ class Test {
         this.finish();
         this.header();
         process.stdout.write(util.format('ex  : %s : %s\n', this.name, exception.message));
+        process.stdout.write(util.inspect(exception, {showHidden: false, depth: null}));
         this.resolution = testState.error;
     }
 
@@ -155,23 +157,23 @@ class UnitTestRunner {
     }
 
     runTestModule(testModule) {
-        let testMethodNames = Object.getOwnPropertyNames(testModule);
-        let testNames = testMethodNames
+        const testMethodNames = Object.getOwnPropertyNames(testModule);
+        const testNames = testMethodNames
             .map((methodName) => {
-                let m = /^test(.*)$/.exec(methodName);
+                const m = /^test(.*)$/.exec(methodName);
                 if (m) {
                     return m[1];
                 }
-            })  
+            })
             .filter((testName) => {
                 return testName;
             });
 
         testNames.forEach((testName) => {
-            let fun = testModule['test' + testName];
+            const fun = testModule['test' + testName];
             // let funSource = fun.toSource();
             // let generatedCode = this.coverage.instrumenter.instrumentSync(funSource);
-            let test = new Test({
+            const test = new Test({
                 fun: fun,
                 name: testName
             });
@@ -187,6 +189,7 @@ class UnitTestRunner {
                 // let x = this.coverage.instrumenter.lastFileCoverage();
                 // console.log('cov', x, global['__coverage__']);
                 // this.coverage.collector.add(this.coverage.instrumeber.lastFileCoverage());
+                // console.log('about to collect coverage...', test, global['__coverage__']);
                 this.coverage.collector.add(global['__coverage__']);
             }
         });

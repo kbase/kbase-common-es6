@@ -20,7 +20,7 @@ define([
             }
         }
 
-        let userCollection = new UserCollection();
+        const userCollection = new UserCollection();
         userCollection.start();
 
         userCollection.add({
@@ -28,14 +28,14 @@ define([
             name: 'Aye Bee Cee'
         });
 
-        let user = userCollection.get({username: 'abc'});
+        const user = userCollection.get({username: 'abc'});
 
         if (user && user.username === 'abc' && user.name === 'Aye Bee Cee') {
             test.success();
         } else {
             test.fail('did not get expected value');
         }
-        
+
     }
 
     // function testSkipped(test) {

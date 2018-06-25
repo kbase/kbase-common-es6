@@ -1,14 +1,12 @@
 define([
     './props'
-    // './unitTest'
 ], function (
     props
-    // unitTest
 ) {
     'use strict';
 
     function testGetSimpleProp(test) {
-        let params = [
+        const params = [
             {
                 expected: 'Coco',
                 prop: 'name'
@@ -20,11 +18,11 @@ define([
         ];
 
         params.forEach((param) => {
-            let data = {
+            const data = {
                 name: param.expected
             };
-    
-            let result = props.getProp(data, param.prop);
+
+            const result = props.getProp(data, param.prop);
             if (result === param.expected) {
                 test.success();
             } else {
@@ -34,7 +32,7 @@ define([
     }
 
     function testGetPropPath(test) {
-        let data = {
+        const data = {
             name: 'Coco',
             favoriteFoods: {
                 breakfast: 'chow',
@@ -43,7 +41,7 @@ define([
             }
         };
 
-        let params = [
+        const params = [
             {
                 expected: 'special-chow',
                 prop: 'favoriteFoods.dinner'
@@ -54,8 +52,8 @@ define([
             }
         ];
 
-        params.forEach((param) => {    
-            let result = props.getProp(data, param.prop);
+        params.forEach((param) => {
+            const result = props.getProp(data, param.prop);
             if (result === param.expected) {
                 test.success();
             } else {
@@ -65,7 +63,7 @@ define([
     }
 
     function testSetThenGetProp(test) {
-        let params = [
+        const params = [
             {
                 value: 'peet',
                 prop: 'name'
@@ -76,10 +74,10 @@ define([
             }
         ];
 
-        params.forEach((param) => {   
-            let data = {}; 
+        params.forEach((param) => {
+            const data = {};
             props.setProp(data, param.prop, param.value);
-            let result = props.getProp(data, param.prop);
+            const result = props.getProp(data, param.prop);
             if (result === param.value) {
                 test.success();
             } else {
@@ -92,7 +90,7 @@ define([
     }
 
     function testSetThenHasProp(test) {
-        let params = [
+        const params = [
             {
                 value: 'peet',
                 prop: 'name'
@@ -103,8 +101,8 @@ define([
             }
         ];
 
-        params.forEach((param) => {   
-            let data = {}; 
+        params.forEach((param) => {
+            const data = {};
             props.setProp(data, param.prop, param.value);
             if (props.hasProp(data, param.prop)) {
                 test.success();
@@ -115,16 +113,83 @@ define([
     }
 
     function testSetThenDeleteThenGetProp(test) {
-        let data = {};
+        const data = {};
 
-        let name = 'peet';
+        const name = 'peet';
         props.setProp(data, 'name', name);
-        let result1 = props.getProp(data, 'name');
+        const result1 = props.getProp(data, 'name');
 
-        props.deleteProp(data, 'name');
-        let result2 = props.getProp(data, 'name', null);
+        const deleteResult = props.deleteProp(data, 'name');
+        const result2 = props.getProp(data, 'name', null);
 
-        if (result1 === name && result2 === null) {
+        if (result1 === name && result2 === null && deleteResult === true) {
+            test.success();
+        } else {
+            test.fail();
+        }
+    }
+
+    function testDeleteNonexistentProperty(test) {
+        const data = {};
+
+        const name = 'peet';
+        props.setProp(data, 'name', name);
+
+        const deleteResult = props.deleteProp(data, 'age');
+
+        if (deleteResult === false) {
+            test.success();
+        } else {
+            test.fail();
+        }
+    }
+
+    function testDeleteWithInvalidPath(test) {
+        const data = {};
+
+        const name = 'peet';
+        props.setProp(data, 'name', name);
+
+        const badPathsToTry = [undefined, null, 1, 1.23, true, false, new Date()];
+
+        badPathsToTry.forEach((badPath) => {
+            try {
+                props.deleteProp(data, badPath);
+                test.fail();
+                return;
+            } catch (ex) {
+                // good!
+                test.success();
+            }
+        });
+    }
+
+    function testSetWithInvalidPath(test) {
+        const data = {};
+
+        const badPathsToTry = [undefined, null, 1, 1.23, true, false, new Date()];
+
+        badPathsToTry.forEach((badPath) => {
+            try {
+                props.setProp(data, badPath, 'peet');
+                test.fail();
+                return;
+            } catch (ex) {
+                // good!
+                test.success();
+            }
+        });
+    }
+
+    function testDeleteNonexistentPathComponent(test) {
+        const data = {};
+
+        const name = 'peet';
+        props.setProp(data, 'name', name);
+
+        const deleteResult = props.deleteProp(data, 'birth.date');
+
+        if (deleteResult === false) {
             test.success();
         } else {
             test.fail();
@@ -132,7 +197,7 @@ define([
     }
 
     function testIncrement(test) {
-        let params = [
+        const params = [
             {
                 prop: 'goals',
                 initial: 0,
@@ -145,12 +210,12 @@ define([
             },
         ];
 
-        params.forEach((param) => {   
-            let data = {
+        params.forEach((param) => {
+            const data = {
                 goals: param.initial
-            }; 
+            };
             props.incrProp(data, param.prop);
-            let value = props.getProp(data, param.prop);
+            const value = props.getProp(data, param.prop);
             if (value === param.expected) {
                 test.success();
             } else {
@@ -160,11 +225,15 @@ define([
     }
 
     return {
-        testGetSimpleProp, 
-        testGetPropPath, 
-        testSetThenGetProp, 
+        testGetSimpleProp,
+        testGetPropPath,
+        testSetThenGetProp,
         testSetThenDeleteThenGetProp,
         testSetThenHasProp,
-        testIncrement
+        testIncrement,
+        testDeleteNonexistentProperty,
+        testDeleteNonexistentPathComponent,
+        testDeleteWithInvalidPath,
+        testSetWithInvalidPath
     };
 });

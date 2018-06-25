@@ -1,5 +1,5 @@
 /*eslint-env node*/
-let util = require('util');
+const util = require('util');
 
 define([], function () {
     'use strict';
@@ -19,16 +19,16 @@ define([], function () {
                 failure: failure,
                 exception: exception
             });
-           
+
         }
-    
+
         run() {
-            let name = this.name;
-            let fun = this.testFun;
-            let start = new Date().getTime();
+            const name = this.name;
+            const fun = this.testFun;
+            const start = new Date().getTime();
             try {
-                let result = fun();
-                let elapsed = new Date().getTime() - start;
+                const result = fun();
+                const elapsed = new Date().getTime() - start;
 
                 if (result === true) {
                     this.reportTest(name, elapsed, 'passed');
@@ -36,7 +36,7 @@ define([], function () {
                     this.reportTest(name, elapsed, 'failed', result);
                 }
             } catch (ex) {
-                let elapsed = new Date().getTime() - start;
+                const elapsed = new Date().getTime() - start;
                 this.reportTest(name, elapsed, 'exception', null, ex);
             }
         }

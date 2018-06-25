@@ -4,7 +4,7 @@ the database is divided into collections, which may be added or removed dynamica
 
 a collection:
 - must be able to handle any object added to it; if not, it throws an exception
-- must be able to asisgn a unique to to any object added to it; access by key is thus always avaialble.
+- must be able to assign a unique id to any object added to it; access by key is thus always available.
 */
 define([
 
@@ -12,7 +12,7 @@ define([
     'use strict';
 
     class Database {
-        constructor () {
+        constructor() {
             this.collections = {};
         }
 
@@ -24,14 +24,14 @@ define([
         }
 
         removeCollection(name) {
-            let c = this.collections[name];
+            const c = this.collections[name];
             delete this.collections[name];
-            c.stop();            
+            c.stop();
         }
     }
 
     class Collection {
-        constructor (name) {
+        constructor(name) {
             this.name = name;
 
             this.objectIndex = {};
@@ -51,7 +51,7 @@ define([
         // }
 
         add(newObject) {
-            let key = this.createKey(newObject);
+            const key = this.createKey(newObject);
             if (key in this.objectIndex) {
                 throw new Error('Object already exists in this collection: ' + key);
             }
@@ -60,10 +60,10 @@ define([
         }
 
         get(objectStub, defaultValue) {
-            let key = this.createKey(objectStub);
+            const key = this.createKey(objectStub);
             if (key in this.objectIndex) {
                 return this.objectIndex[key];
-            } 
+            }
             return defaultValue;
         }
     }

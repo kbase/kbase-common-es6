@@ -15,7 +15,7 @@ define([
         }
 
         run() {
-            // does nothing... 
+            // does nothing...
             throw new Error('Must override the run method');
         }
     }
@@ -153,11 +153,11 @@ define([
             };
 
             this.currentPoll.timer = window.setTimeout(() => {
-                // Store a private reference so new pollers don't interfere if they are 
+                // Store a private reference so new pollers don't interfere if they are
                 // created while we are still running.
-                let thisPoll = this.currentPoll;
+                const thisPoll = this.currentPoll;
                 if (thisPoll.cancelled) {
-                    // don't do it!                        
+                    // don't do it!
                     console.warn('poll cancelled! ' + thisPoll.id);
                 }
                 if (this.task.doContinue) {
@@ -224,12 +224,12 @@ define([
                 arg.fun();
             }
         }
-        let job = new MyJob();
-        let task = new Task({
+        const job = new MyJob();
+        const task = new Task({
             interval: arg.interval
         });
         task.addJob(job);
-        let poller = new Poller({
+        const poller = new Poller({
             task: task
         });
         return poller;

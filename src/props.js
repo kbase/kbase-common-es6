@@ -23,7 +23,7 @@ define([], function () {
                 return obj;
             }
         },
-        
+
         hasProp: {
             value: function (obj, propPath) {
                 if (typeof propPath === 'string') {
@@ -45,7 +45,7 @@ define([], function () {
                 return true;
             }
         },
-       
+
         setProp: {
             value: function (obj, propPath, value) {
                 if (typeof propPath === 'string') {
@@ -57,8 +57,8 @@ define([], function () {
                     return;
                 }
                 // pop off the last property for setting at the end.
-                let propKey = propPath[propPath.length - 1],
-                    key;
+                const propKey = propPath[propPath.length - 1];
+                let key;
                 // Walk the path, creating empty objects if need be.
                 for (let i = 0; i < propPath.length - 1; i += 1) {
                     key = propPath[i];
@@ -72,7 +72,7 @@ define([], function () {
                 return value;
             }
         },
-        
+
         incrProp: {
             value: function (obj, propPath, increment) {
                 if (typeof propPath === 'string') {
@@ -84,9 +84,9 @@ define([], function () {
                     return;
                 }
                 increment = (increment === undefined) ? 1 : increment;
-                let propKey = propPath[propPath.length - 1];
+                const propKey = propPath[propPath.length - 1];
                 for (let i = 0; i < propPath.length - 1; i += 1) {
-                    let key = propPath[i];
+                    const key = propPath[i];
                     if (obj[key] === undefined) {
                         obj[key] = {};
                     }
@@ -104,7 +104,7 @@ define([], function () {
                 return obj[propKey];
             }
         },
-       
+
         deleteProp: {
             value: function (obj, propPath) {
                 if (typeof propPath === 'string') {
@@ -113,15 +113,20 @@ define([], function () {
                     throw new TypeError('Invalid type for key: ' + (typeof propPath));
                 }
                 if (propPath.length === 0) {
-                    return;
+                    return false;
                 }
-                let propKey = propPath[propPath.length - 1];
+                const propKey = propPath[propPath.length - 1];
                 for (let i = 0; i < propPath.length - 1; i += 1) {
-                    let key = propPath[i];
+                    const key = propPath[i];
                     if (obj[key] === undefined) {
+                        // for idempotency, and utility, do not throw error if
+                        // the key doesn't exist.
                         return false;
                     }
                     obj = obj[key];
+                }
+                if (obj[propKey] === undefined) {
+                    return false;
                 }
                 delete obj[propKey];
                 return true;

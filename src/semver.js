@@ -2,12 +2,12 @@ define([], function () {
     'use strict';
 
     function parseSemver(semver) {
-        let semverRegex = /^([\d]+)\.([\d]+)\.([\d]+)(?:-(.*))?$/;
-        let parsed = semverRegex.exec(semver);
+        const semverRegex = /^([\d]+)\.([\d]+)\.([\d]+)(?:-(.*))?$/;
+        const parsed = semverRegex.exec(semver);
         if (!parsed) {
             throw new Error('Not a semver string: ' + semver);
         }
-        let [, major, minor, patch, preRelease] = parsed;
+        const [, major, minor, patch, preRelease] = parsed;
         return [parseInt(major, 10), parseInt(minor, 10), parseInt(patch, 10), preRelease];
     }
 
@@ -37,8 +37,8 @@ define([], function () {
     // }
 
     function semverIsAtLeast(baseSemver, semver) {
-        let [majorBase, minorBase, patchBase, preReleaseBase] = parseSemver(baseSemver);
-        let [major, minor, patch, preRelease] = parseSemver(semver);
+        const [majorBase, minorBase, patchBase, preReleaseBase] = parseSemver(baseSemver);
+        const [major, minor, patch, preRelease] = parseSemver(semver);
 
 
         if (major !== majorBase) {
@@ -52,7 +52,7 @@ define([], function () {
         if (minor === minorBase && patch > patchBase) {
             return 'patch-too-low';
         }
-        
+
         if (patch === patchBase) {
             if (!preReleaseBase) {
                 if (!preRelease) {
@@ -69,7 +69,7 @@ define([], function () {
                     }
                 }
             }
-           
+
         }
 
         return true;

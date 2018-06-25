@@ -18,7 +18,7 @@ define([
     }
 
     function testParseSemver(test) {
-        let data = [
+        const data = [
             {
                 input: '1.2.3',
                 expected: [1, 2, 3, undefined]
@@ -30,7 +30,7 @@ define([
         ];
 
         data.forEach((datum) => {
-            let result = semver.parseSemver(datum.input);
+            const result = semver.parseSemver(datum.input);
             if (arraysEqual(result, datum.expected)) {
                 test.success();
             } else {
@@ -43,7 +43,7 @@ define([
     }
 
     function testComparison(test) {
-        let data = [
+        const data = [
             {
                 actualVersion: '1.2.3',
                 desiredVersion: '1.2.3',
@@ -102,7 +102,7 @@ define([
         ];
 
         data.forEach((datum) => {
-            let result = semver.semverIsAtLeast(datum.actualVersion, datum.desiredVersion);
+            const result = semver.semverIsAtLeast(datum.actualVersion, datum.desiredVersion);
             if (result === datum.expected) {
                 test.success();
             } else {
