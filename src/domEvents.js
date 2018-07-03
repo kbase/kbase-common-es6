@@ -9,7 +9,14 @@ define([
         return 'id_' + new Uuid(4).format();
     }
 
-    class DomEvents {
+    class DOMEvent {
+        constructor({type, handler}) {
+            this.type = type;
+            this.handler = handler;
+        }
+    }
+
+    class DOMEvents {
         constructor({node}) {
             this.root = node;
 
@@ -81,5 +88,5 @@ define([
         }
     }
 
-    return {DomEvents};
+    return {DOMEvents, DOMEvent};
 });
