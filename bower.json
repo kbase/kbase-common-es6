@@ -15,7 +15,8 @@
         "type": "git",
         "url": "git://github.com/kbase/kbase-ui-es6lib"
     },
-    "dependencies": {        
+    "dependencies": {
+        "pure-uuid": "eapearson/pure-uuid#1.1.1"
     },
     "devDependencies": {},
     "license": "SEE LICENSE IN LICENSE.md"
