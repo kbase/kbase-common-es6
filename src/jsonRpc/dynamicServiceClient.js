@@ -8,7 +8,7 @@ define([
     'use strict';
 
     class Cache {
-        constructor({itemLifetime, monitoringFrequency, waiterTimeout, waiterFrequency}) {
+        constructor({itemLifetime, monitoringFrequency, waiterTimeout, waiterFrequency} = {}) {
             this.cache = {};
 
             // 10 minute cache lifetime
@@ -188,7 +188,7 @@ define([
             this.runMonitor();
         }
     }
-    var moduleCache = new Cache();
+    var moduleCache = new Cache({});
 
 
     /*
