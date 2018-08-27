@@ -49,10 +49,10 @@ define([
             this.window = config.window;
 
             // The host for the window; required for postmessage
-            this.host = config.host;
+            this.host = config.host || document.location.origin;
 
-            // The channel id. Used filter all messages received to
-            // this window.
+            // The channel id. Used to filter all messages received to
+            // this channel.
             this.id = config.channelId ||  new Uuid(4).format();
 
             // this.routes = [];
@@ -218,7 +218,7 @@ define([
                     const newListeners = listeners.filter((listener) => {
                         if (listener.timeout) {
                             const elapsed = now - listener.started.getTime();
-                            console.log('elapsed?', listener instanceof WaitingListener, elapsed, listener.timeout);
+                            // console.log('elapsed?', listener instanceof WaitingListener, elapsed, listener.timeout);
                             if (elapsed > listener.timeout) {
                                 try {
                                     if (listener.onError) {
