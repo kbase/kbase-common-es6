@@ -71,6 +71,42 @@ define([], function () {
         }
     }
 
+    /**
+     * Given an ISO8601 date in full regalia, with a GMT/UTC timezone offset attached
+     * in #### format, reformat the date into ISO8601 with no timezone.
+     * Javascript (at present) does not like timezone attached and assumes all such
+     * datetime strings are UTC.
+     * YYYY-MM-DDThh:mm:ss[+-]hh[:]mm
+     * where the +is + or -, and the : in the timezone is optional.
+     *
+     * @function iso8601ToDate
+     *
+     * @param {string} dateString - an string encoding a date-time in iso8601 format
+     *
+     * @returns {Date} - a date object representing the same time as provided in the input.
+     *
+     * @throws {TypeError} if the input date string does not parse strictly as
+     * an ISO8601 full date format.
+     *
+     * @static
+     */
+    function iso8601ToDate(dateString) {
+        if (!dateString) {
+            return null;
+        }
+        const isoRE = /(\d\d\d\d)-(\d\d)-(\d\d)T(\d\d):(\d\d):(\d\d)([\+\-])(\d\d)(:?[\:]*)(\d\d)/;
+        const dateParts = isoRE.exec(dateString);
+        if (!dateParts) {
+            throw new TypeError('Invalid Date Format for ' + dateString);
+        }
+        // This is why we do this -- JS insists on the colon in the tz offset.
+        const offset = dateParts[7] + dateParts[8] + ':' + dateParts[10];
+        const newDateString = dateParts[1] + '-' + dateParts[2] + '-' + dateParts[3] + 'T' + dateParts[4] + ':' + dateParts[5] + ':' + dateParts[6] + offset;
+        return new Date(newDateString);
+    }
 
-    return Object.freeze({niceElapsedTime, shortMonths, shortDays});
+
+
+
+    return Object.freeze({niceElapsedTime, shortMonths, shortDays, iso8601ToDate});
 });
