@@ -33,7 +33,7 @@ define([
                 return;
             }
             this.monitoring = true;
-            window.setTimeout(function () {
+            window.setTimeout(() => {
                 const newCache = {};
                 let cacheRenewed = false;
                 Object.keys(this.cache).forEach((id) => {
@@ -74,11 +74,11 @@ define([
         }
 
         reserveWaiter(item) {
-            return new Promise(function (resolve, reject) {
+            return new Promise((resolve, reject) => {
                 const started = new Date().getTime();
                 const waiting = true;
 
-                function waiter() {
+                const waiter = () => {
                     if (!waiting) {
                         return;
                     }
@@ -101,7 +101,7 @@ define([
                                     // as if we had waited for it.
                                     resolve(this.cache[item.id]);
                                 })
-                                .catch(function (err) {
+                                .catch((err) => {
                                     reject(err);
                                 });
                         }
@@ -119,7 +119,7 @@ define([
                             }
                         }
                     }, this.waiterFrequency);
-                }
+                };
                 waiter();
             });
         }
@@ -134,7 +134,7 @@ define([
                     this.setItem(id, result, fetch);
                     return result;
                 })
-                .finally(function () {
+                .finally(() => {
                     // If the fetch was cancelled, we need to remove
                     // the reserved item. This should signal any queued waiters
                     // to spawn their own fetch.
