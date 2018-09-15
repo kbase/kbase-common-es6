@@ -294,11 +294,16 @@ define([
         }
 
         start() {
-            this.window.addEventListener('message', (message) => {this.receiveMessage(message);}, false);
+            this.currentListener = (message) => {
+                this.receiveMessage(message);
+            };
+            this.window.addEventListener('message', this.currentListener, false);
         }
 
         stop() {
-            this.window.removeEventListener('message', this.receiveMessage);
+            if (this.currentListener) {
+                this.window.removeEventListener('message', this.currentListener, false);
+            }
         }
     }
 
