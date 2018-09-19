@@ -128,7 +128,6 @@ define([], function () {
     }
 
     class Props {
-
         constructor({data}) {
             this.obj = data;
         }
