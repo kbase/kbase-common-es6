@@ -153,6 +153,10 @@ define([], function () {
         deleteItem(path) {
             return deleteProp(this.obj, path);
         }
+
+        getRaw() {
+            return this.obj;
+        }
     }
 
     return Object.freeze({Props, getProp, hasProp, setProp, incrProp, deleteProp});
