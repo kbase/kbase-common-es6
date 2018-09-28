@@ -70,6 +70,10 @@ define([
             this.lastId = 0;
             this.sentCount = 0;
             this.receivedCount = 0;
+
+            this.unwelcomeReceivedCount = 0;
+            this.unwelcomeReceivedCountThreshhold = 100;
+            this.unwelcomeReceiptWarning = true;
         }
 
         genId() {
@@ -95,9 +99,30 @@ define([
             // if (!message.envelope.from === this.clientId) {
             //     return;
             // }
-            if (!message.envelope.channelId === this.id) {
-                console.warn('Message envelope does not match this channel\'s id');
+            if (!message) {
+                this.unwelcomeReceivedCount++;
+                if (this.unwelcomeReceiptWarning) {
+                    console.warn('No message data; message ignored', messageEvent);
+                }
                 return;
+            }
+            if (!message.envelope) {
+                this.unwelcomeReceivedCount++;
+                if (this.unwelcomeReceiptWarning) {
+                    console.warn('No message envelope, not from KBase; message ignored', messageEvent);
+                }
+                return;
+            }
+            if (!message.envelope.channelId === this.id) {
+                this.unwelcomeReceivedCount++;
+                if (this.unwelcomeReceiptWarning) {
+                    console.warn('Message envelope does not match this channel\'s id', messageEvent);
+                }
+                return;
+            }
+            if (this.unwelcomeReceiptWarningCount > this.unwelcomeReceivedCountThreshhold) {
+                this.unwelcomeReceiptWarning = false;
+                console.warn('Unwelcome message warning disabled after ' + this.unwelcomeReceiptWarningCount + ' instances.');
             }
 
             // A message sent as a request will have registered a response handler
