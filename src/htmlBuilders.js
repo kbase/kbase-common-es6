@@ -441,6 +441,12 @@ define([
         ]);
     }
 
+    function safeText(text) {
+        const n = document.createElement('div');
+        n.textContent = text;
+        return n.innerHTML;
+    }
+
     return Object.freeze({
         makeTable: makeTable,
         makeTableRotated: makeTableRotated,
@@ -452,6 +458,7 @@ define([
         makePanel: makePanel,
         loading: loading,
         makeList: makeList,
-        makeTabs: makeTabs
+        makeTabs: makeTabs,
+        safeText: safeText
     });
 });
