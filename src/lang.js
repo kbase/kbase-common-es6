@@ -77,5 +77,17 @@ define([
         return iseq(v1, v2);
     }
 
-    return {isEqual};
+    function objectToArray(obj, keyName, valueName) {
+        const keys = Object.keys(obj);
+        const arr = [];
+        for (const i in keys) {
+            const newObj = {};
+            newObj[keyName] = keys[i];
+            newObj[valueName] = obj[keys[i]];
+            arr.push(newObj);
+        }
+        return arr;
+    }
+
+    return {isEqual, objectToArray};
 });
