@@ -94,7 +94,7 @@ define([], function () {
         if (!dateString) {
             return null;
         }
-        const isoRE = /(\d\d\d\d)-(\d\d)-(\d\d)T(\d\d):(\d\d):(\d\d)([\+\-])(\d\d)(:?[\:]*)(\d\d)/;
+        const isoRE = /(\d\d\d\d)-(\d\d)-(\d\d)T(\d\d):(\d\d):(\d\d)([+-])(\d\d)(:?[:]*)(\d\d)/;
         const dateParts = isoRE.exec(dateString);
         if (!dateParts) {
             throw new TypeError('Invalid Date Format for ' + dateString);
@@ -108,5 +108,5 @@ define([], function () {
 
 
 
-    return Object.freeze({niceElapsedTime, shortMonths, shortDays, iso8601ToDate});
+    return Object.freeze({ niceElapsedTime, shortMonths, shortDays, iso8601ToDate });
 });
