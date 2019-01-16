@@ -9,8 +9,8 @@ define([], function () {
         }
         for (let i = 0; i < propPath.length; i += 1) {
             if ((obj === undefined) ||
-                        (typeof obj !== 'object') ||
-                        (obj === null)) {
+                (typeof obj !== 'object') ||
+                (obj === null)) {
                 return defaultValue;
             }
             obj = obj[propPath[i]];
@@ -30,8 +30,8 @@ define([], function () {
         }
         for (let i = 0; i < propPath.length; i += 1) {
             if ((obj === undefined) ||
-                        (typeof obj !== 'object') ||
-                        (obj === null)) {
+                (typeof obj !== 'object') ||
+                (obj === null)) {
                 return false;
             }
             obj = obj[propPath[i]];
@@ -128,8 +128,8 @@ define([], function () {
     }
 
     class Props {
-        constructor({data}) {
-            this.obj = data;
+        constructor(config = {}) {
+            this.obj = config.data || {};
         }
 
         getItem(props, defaultValue) {
@@ -158,5 +158,5 @@ define([], function () {
         }
     }
 
-    return Object.freeze({Props, getProp, hasProp, setProp, incrProp, deleteProp});
+    return Object.freeze({ Props, getProp, hasProp, setProp, incrProp, deleteProp });
 });
