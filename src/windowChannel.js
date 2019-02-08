@@ -46,14 +46,14 @@ define([
     class Channel {
         constructor(config) {
             // The given window upon which we will listen for messages.
-            this.window = config.window;
+            this.window = config.window || window;
 
             // The host for the window; required for postmessage
             this.host = config.host || document.location.origin;
 
             // The channel id. Used to filter all messages received to
             // this channel.
-            this.id = config.channelId ||  new Uuid(4).format();
+            this.id = config.channelId || new Uuid(4).format();
 
             // this.routes = [];
             // this.hostId = config.hostId;
@@ -208,7 +208,7 @@ define([
         }
 
         send(name, payload) {
-            const message = new Message({name, payload, channel: this.id});
+            const message = new Message({ name, payload, channel: this.id });
             this.sendMessage(message);
         }
 
@@ -225,7 +225,7 @@ define([
         request(name, payload) {
             return new Promise((resolve, reject) => {
                 try {
-                    this.sendRequest(new Message({name, payload, channel: this.id}), (response) => {
+                    this.sendRequest(new Message({ name, payload, channel: this.id }), (response) => {
                         resolve(response);
                     });
                 } catch (ex) {
@@ -235,7 +235,7 @@ define([
         }
 
         startMonitor() {
-        // start with a silly simple one.
+            // start with a silly simple one.
             window.setTimeout(() => {
                 const now = new Date().getTime();
                 Object.keys(this.waitingListeners).forEach((key) => {
@@ -332,5 +332,5 @@ define([
         }
     }
 
-    return {Channel, Message};
+    return { Channel, Message };
 });
