@@ -46,19 +46,19 @@ define([
 
     const tagsCache = {};
     /**
-         * Given a simple object of keys and values, create a string which
-         * encodes them into a form suitable for the value of a style attribute.
-         * Style attribute values are themselves attributes, but due to the limitation
-         * of html attributes, they are embedded in a string:
-         * The format is
-         * key: value;
-         * Note that values are not quoted, and the separator between fields is
-         * a semicolon
-         * Note that we expect the value to be embedded withing an html attribute
-         * which is quoted with double-qoutes; but we don't do any escaping here.
-         * @param {type} attribs
-         * @returns {String}
-         */
+                                 * Given a simple object of keys and values, create a string which
+                                 * encodes them into a form suitable for the value of a style attribute.
+                                 * Style attribute values are themselves attributes, but due to the limitation
+                                 * of html attributes, they are embedded in a string:
+                                 * The format is
+                                 * key: value;
+                                 * Note that values are not quoted, and the separator between fields is
+                                 * a semicolon
+                                 * Note that we expect the value to be embedded withing an html attribute
+                                 * which is quoted with double-qoutes; but we don't do any escaping here.
+                                 * @param {type} attribs
+                                 * @returns {String}
+                                 */
     function camelToHyphen(s) {
         return s.replace(/[A-Z]/g, (m) => {
             return '-' + m.toLowerCase();
@@ -88,12 +88,12 @@ define([
     }
 
     /*
-        THe correct form is 'attrib-key'
-        Usage in the wild may be "attrib-key", which is converted to the above
-        Or just attrib-key, which is then wrapped in '
-        The hyphenation of attribKey will not work because knockout keys
-        may be legitimately camelCased.
-        */
+                                THe correct form is 'attrib-key'
+                                Usage in the wild may be "attrib-key", which is converted to the above
+                                Or just attrib-key, which is then wrapped in '
+                                The hyphenation of attribKey will not work because knockout keys
+                                may be legitimately camelCased.
+                                */
     function fixKey(key) {
         if (key.match(/'.*'/)) {
             return key;
@@ -107,17 +107,17 @@ define([
         return key;
     }
     /**
-         * The attributes for knockout's data-bind is slightly different than
-         * for style. The syntax is that of a simple javascript object.
-         * property: value, property: "value", property: 123
-         * So, we simply escape double-quotes on the value, so that unquoted values
-         * will remain as raw names/symbols/numbers, and quoted strings will retain
-         * the quotes.
-         * TODO: it would be smarter to detect if it was a quoted string
-         *
-         * @param {type} attribs
-         * @returns {String}
-         */
+                                 * The attributes for knockout's data-bind is slightly different than
+                                 * for style. The syntax is that of a simple javascript object.
+                                 * property: value, property: "value", property: 123
+                                 * So, we simply escape double-quotes on the value, so that unquoted values
+                                 * will remain as raw names/symbols/numbers, and quoted strings will retain
+                                 * the quotes.
+                                 * TODO: it would be smarter to detect if it was a quoted string
+                                 *
+                                 * @param {type} attribs
+                                 * @returns {String}
+                                 */
 
     // outer level (no surrounting curly braces.)
     function makeDataBindAttribs(attribs) {
@@ -171,14 +171,14 @@ define([
     }
 
     /**
-         * Given a simple object of keys and values, create a string which
-         * encodes a set of html tag attributes.
-         * String values escape the "
-         * Boolean values either insert the attribute name or not
-         * Object values are interpreted as "embedded attributes" (see above)
-         * @param {type} attribs
-         * @returns {String}
-         */
+                                 * Given a simple object of keys and values, create a string which
+                                 * encodes a set of html tag attributes.
+                                 * String values escape the "
+                                 * Boolean values either insert the attribute name or not
+                                 * Object values are interpreted as "embedded attributes" (see above)
+                                 * @param {type} attribs
+                                 * @returns {String}
+                                 */
     function makeTagAttribs(attribs) {
         const quoteChar = '"';
         const quoteEscaped = '&quot;';
@@ -399,7 +399,7 @@ define([
                 };
             }
 
-            classDefs[key].id  = id;
+            classDefs[key].id = id;
         });
 
         const sheet = [];
@@ -469,15 +469,37 @@ define([
             if (style.modifiers) {
                 Object.keys(style.modifiers).forEach((key) => {
                     const id = addScope(key);
+                    const modifier = style.modifiers[key];
+                    if (!modifier.css) {
+                        modifier.css = modifier;
+                    }
                     sheet.push([
                         '.',
                         style.id,
                         '.',
                         id,
                         '{',
-                        makeStyleAttribs(style.modifiers[key]),
+                        makeStyleAttribs(modifier.css),
                         '}'
                     ].join(''));
+
+                    if (modifier.pseudo) {
+                        modifier.pseudoClasses = modifier.pseudo;
+                    }
+                    if (modifier.pseudoClasses) {
+                        Object.keys(modifier.pseudoClasses).forEach((pseudoClass) => {
+                            sheet.push([
+                                '.',
+                                style.id,
+                                '.',
+                                id + ':' + pseudoClass,
+                                '{',
+                                makeStyleAttribs(modifier.pseudoClasses[pseudoClass]),
+                                '}'
+                            ].join(''));
+                        });
+                    }
+
                 });
             }
 
