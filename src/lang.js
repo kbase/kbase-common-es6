@@ -89,5 +89,16 @@ define([
         return arr;
     }
 
-    return {isEqual, objectToArray};
+    class UIError extends Error {
+        constructor({type, reason, message, blame, code, suggestion}) {
+            super(message);
+            this.type = type;
+            this.reason = reason;
+            this.blame = blame;
+            this.code = code;
+            this.suggestion = suggestion;
+        }
+    }
+
+    return {isEqual, objectToArray, UIError};
 });
