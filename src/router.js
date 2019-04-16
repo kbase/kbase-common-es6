@@ -146,6 +146,8 @@ define([], () => {
                 };
             }
 
+            console.log('find route', req);
+
             routeloop: for (let i = 0; i < this.routes.length; i += 1) {
                 route = this.routes[i];
                 params = {};
@@ -154,16 +156,14 @@ define([], () => {
 
                 // We can use a route which is longer than the path if the route has
                 // optional params at the end.
+
                 if (route.path.length > req.path.length) {
-                    if (
-                        !(
-                            req.path.slice(route.path.length).every((routePathElement) => {
-                                return routePathElement.optional;
-                            }) ||
-                            captureExtraPath ||
-                            route.path[route.path.length - 1].type === 'rest'
-                        )
-                    ) {
+                    const isAllOptional = route.path.slice(req.path.length).every((routePathElement) => {
+                        return routePathElement.optional;
+                    });
+                    const isCaptureExtraPath = captureExtraPath;
+                    const isRest = route.path[route.path.length - 1].type === 'rest';
+                    if (!(isAllOptional || isCaptureExtraPath || isRest)) {
                         continue routeloop;
                     }
                 } else if (route.path.length < req.path.length) {
