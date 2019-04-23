@@ -146,8 +146,6 @@ define([], () => {
                 };
             }
 
-            console.log('find route', req);
-
             routeloop: for (let i = 0; i < this.routes.length; i += 1) {
                 route = this.routes[i];
                 params = {};
