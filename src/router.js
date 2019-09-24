@@ -233,7 +233,13 @@ define([], () => {
                             params[name] = requestPathElement;
                             continue;
                         }
-                        params[name] = req.path.slice(j);
+
+                        if (routePathElement.joinWith) {
+                            params[name] = req.path.slice(j).join(routePathElement.joinWith)
+                        } else {
+                            params[name] = req.path.slice(j);
+                        }
+                        
                         break reqloop;
                     default:
                         // If the path element is not well formed (not a recognized type)
