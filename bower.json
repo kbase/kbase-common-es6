@@ -17,8 +17,8 @@
         "url": "git://github.com/kbase/kbase-ui-es6lib"
     },
     "dependencies": {
-        "bluebird": "^3.7.2",
-        "pure-uuid": "^1.5.8"
+        "bluebird": "^3.5.0",
+        "pure-uuid": "^1.5.0"
     },
     "devDependencies": {},
     "license": "SEE LICENSE IN LICENSE.md"
