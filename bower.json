@@ -2,7 +2,8 @@
     "name": "kbase-ui-es6lib",
     "description": "A library collection for kbase ui in es6",
     "keywords": [
-        "kbase", "library"
+        "kbase",
+        "library"
     ],
     "author": [
         "eapearson@lbl.gov"
@@ -16,7 +17,8 @@
         "url": "git://github.com/kbase/kbase-ui-es6lib"
     },
     "dependencies": {
-        "pure-uuid": "eapearson/pure-uuid#1.1.1"
+        "bluebird": "^3.7.2",
+        "pure-uuid": "^1.5.8"
     },
     "devDependencies": {},
     "license": "SEE LICENSE IN LICENSE.md"
