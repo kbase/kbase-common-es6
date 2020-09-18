@@ -1,5 +1,4 @@
 define(['bluebird', 'kb_lib/merge'], function (Promise, merge) {
-    'use strict';
 
     class ObjectWidgetAdapter {
         constructor(config) {

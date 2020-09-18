@@ -5,7 +5,6 @@ define([
     Promise,
     exceptions
 ) {
-    'use strict';
 
     function post(options) {
         const timeout = options.timeout || 60000;

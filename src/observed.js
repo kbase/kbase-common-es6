@@ -1,5 +1,4 @@
 define(['./props', './asyncQueue', 'bluebird'], (props, AsyncQueue, Promise) => {
-    'use strict';
 
     class Observed {
         constructor() {

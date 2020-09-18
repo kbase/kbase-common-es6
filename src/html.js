@@ -3,7 +3,6 @@ define([
 ], function (
     Uuid
 ) {
-    'use strict';
 
     function jsonToHTML(node) {
         const nodeType = typeof node;

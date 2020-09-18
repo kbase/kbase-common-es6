@@ -1,5 +1,4 @@
 define([], function () {
-    'use strict';
 
     function getProp(obj, propPath, defaultValue) {
         if (typeof propPath === 'string') {

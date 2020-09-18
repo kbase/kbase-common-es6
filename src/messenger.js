@@ -1,5 +1,4 @@
 define(['bluebird', './asyncQueue', './lang'], (Promise, AsyncQueue, lang) => {
-    'use strict';
 
     class Messenger {
         constructor() {

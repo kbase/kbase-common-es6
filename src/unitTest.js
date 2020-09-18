@@ -2,7 +2,6 @@
 const util = require('util');
 
 define([], function () {
-    'use strict';
 
     class Test {
         constructor(name, test, reporter) {

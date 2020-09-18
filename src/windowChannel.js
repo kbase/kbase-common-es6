@@ -1,5 +1,4 @@
 define(['uuid'], function (Uuid) {
-    'use strict';
 
     class Listener {
         constructor(config) {

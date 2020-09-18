@@ -1,7 +1,6 @@
 define([
 ], function (
 ) {
-    'use strict';
     /**
      * Determines, through a thorough and deep inspection, whether
      * two values are equal. Inspects all array items in order,

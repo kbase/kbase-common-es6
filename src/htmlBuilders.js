@@ -3,7 +3,6 @@ define([
 ], function (
     html
 ) {
-    'use strict';
 
     const t = html.tag,
         div = t('div'),

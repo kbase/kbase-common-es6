@@ -4,7 +4,6 @@ define(['bluebird', './adapters/objectWidget', './adapters/kbWidget', '../merge'
     kbwidgetAdapter,
     merge
 ) {
-    'use strict';
 
     class WidgetManager {
         constructor({ runtime }) {

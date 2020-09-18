@@ -3,7 +3,6 @@ define([
 ], function (
     props
 ) {
-    'use strict';
 
     function testGetSimpleProp(test) {
         const params = [

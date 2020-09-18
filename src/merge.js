@@ -1,5 +1,4 @@
 define([], function () {
-    'use strict';
 
     function getType(x) {
         var t = typeof x;

@@ -3,7 +3,6 @@ define([
 ], function (
     Uuid
 ) {
-    'use strict';
 
     function makeUuid() {
         return 'id_' + new Uuid(4).format();

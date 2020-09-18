@@ -1,7 +1,6 @@
 // a simple reactive database for in-browser general usage
 
 define(['./props', './lang', 'uuid'], (props, lang, Uuid) => {
-    'use strict';
 
     class DB {
         constructor() {

@@ -1,5 +1,4 @@
 define([], function () {
-    'use strict';
 
     function encodeQuery(value) {
         function validate(fieldValue) {

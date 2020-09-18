@@ -3,7 +3,6 @@ define([
 ], function (
     state
 ) {
-    'use strict';
 
     function testGetStateProperty(test) {
         class UserCollection extends state.Collection {

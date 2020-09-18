@@ -1,5 +1,4 @@
 define(['bluebird', './adapters/objectWidget', 'kb_lib/merge'], function (Promise, objectWidgetAdapter, merge) {
-    'use strict';
 
     class WidgetManager {
         constructor(config) {

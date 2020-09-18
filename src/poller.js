@@ -3,7 +3,6 @@ define([
 ], function (
     Promise
 ) {
-    'use strict';
 
     class Job {
         constructor(config) {
