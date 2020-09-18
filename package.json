@@ -1,6 +1,6 @@
 {
     "name": "@kbase/common-es6",
-    "version": "0.12.0",
+    "version": "0.12.2",
     "description": "JS ES6 AMD modules commonly used in kbase-ui and friends",
     "main": "index.js",
     "directories": {
@@ -13,22 +13,25 @@
         "type": "git",
         "url": "git+ssh://git@github.com/kbase/kbase-common-es6.git"
     },
-    "author": "",
-    "license": "ISC",
+    "author": "KBase Developers",
+    "license": "SEE LICENSE IN LICENSE",
     "bugs": {
         "url": "https://github.com/kbase/kbase-common-es6/issues"
     },
     "homepage": "https://github.com/kbase/kbase-common-es6#readme",
     "devDependencies": {
-        "requirejs": "2.3.6",
-        "chalk": "4.1.0",
         "bluebird": "3.7.2",
+        "chalk": "4.1.0",
+        "eslint": "7.9.0",
+        "glob": "7.1.6",
         "istanbul": "0.4.5",
         "nyc": "15.1.0",
-        "glob": "7.1.6",
-        "eslint": "7.9.0"
+        "requirejs": "2.3.6"
     },
     "publishConfig": {
         "access": "public"
-    }
+    },
+    "files": [
+        "/src/**/*"
+    ]
 }
