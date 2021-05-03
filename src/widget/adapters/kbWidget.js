@@ -10,7 +10,6 @@ define([
     Promise,
     html
 ) {
-    'use strict';
 
     function createBSPanel($node, title) {
         var id = html.genId(),

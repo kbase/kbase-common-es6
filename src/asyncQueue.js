@@ -1,5 +1,4 @@
 define([], () => {
-    'use strict';
 
     class AsyncQueue {
         constructor(config) {

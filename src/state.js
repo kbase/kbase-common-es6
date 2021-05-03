@@ -9,7 +9,6 @@ a collection:
 define([
 
 ], function () {
-    'use strict';
 
     class Database {
         constructor() {

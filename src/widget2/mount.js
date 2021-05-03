@@ -1,5 +1,4 @@
 define(['bluebird'], function (Promise) {
-    'use strict';
 
     class WidgetMount {
         constructor(config) {

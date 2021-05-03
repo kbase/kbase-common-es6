@@ -1,5 +1,4 @@
 (function (global) {
-    'use strict';
 
     global.require = {
         baseUrl: '/src',

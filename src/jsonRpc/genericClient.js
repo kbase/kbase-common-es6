@@ -1,7 +1,6 @@
 define([
     './jsonRpc-native'
 ], function (jsonRpc) {
-    'use strict';
 
     /*
      * arg is:

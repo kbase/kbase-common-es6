@@ -1,5 +1,4 @@
 define([], function () {
-    'use strict';
 
     function parseSemver(semver) {
         const semverRegex = /^([\d]+)\.([\d]+)\.([\d]+)(?:-(.*))?$/;

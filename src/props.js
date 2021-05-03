@@ -1,12 +1,15 @@
 define([], function () {
-    'use strict';
-
-    function getProp(obj, propPath, defaultValue) {
+    function normalizePropPath(propPath) {
         if (typeof propPath === 'string') {
-            propPath = propPath.split('.');
-        } else if (!(propPath instanceof Array)) {
-            throw new TypeError('Invalid type for key: ' + (typeof propPath));
+            return propPath.split('.');
+        } else if (Array.isArray(propPath)) {
+            return  propPath;
         }
+        throw new TypeError('Invalid type for key: ' + (typeof propPath));
+    }
+
+    function getProp(obj, path, defaultValue) {
+        const propPath = normalizePropPath(path);
         for (let i = 0; i < propPath.length; i += 1) {
             if ((obj === undefined) ||
                 (typeof obj !== 'object') ||
@@ -21,34 +24,21 @@ define([], function () {
         return obj;
     }
 
-
-    function hasProp(obj, propPath) {
-        if (typeof propPath === 'string') {
-            propPath = propPath.split('.');
-        } else if (!(propPath instanceof Array)) {
-            throw new TypeError('Invalid type for key: ' + (typeof propPath));
-        }
-        for (let i = 0; i < propPath.length; i += 1) {
-            if ((obj === undefined) ||
-                (typeof obj !== 'object') ||
-                (obj === null)) {
+    function hasProp(obj, path) {
+        const propPath = normalizePropPath(path);
+        for (const key of propPath) {
+            if ((typeof obj !== 'object') ||
+                (obj === null) ||
+                !(key in obj)) {
                 return false;
             }
-            obj = obj[propPath[i]];
-        }
-        if (obj === undefined) {
-            return false;
+            obj = obj[key];
         }
         return true;
     }
 
-
-    function setProp(obj, propPath, value) {
-        if (typeof propPath === 'string') {
-            propPath = propPath.split('.');
-        } else if (!(propPath instanceof Array)) {
-            throw new TypeError('Invalid type for key: ' + (typeof propPath));
-        }
+    function setProp(obj, path, value) {
+        const propPath = normalizePropPath(path);
         if (propPath.length === 0) {
             return;
         }
@@ -68,14 +58,8 @@ define([], function () {
         return value;
     }
 
-
-
-    function incrProp(obj, propPath, increment) {
-        if (typeof propPath === 'string') {
-            propPath = propPath.split('.');
-        } else if (!(propPath instanceof Array)) {
-            throw new TypeError('Invalid type for key: ' + (typeof propPath));
-        }
+    function incrProp(obj, path, increment) {
+        const propPath = normalizePropPath(path);
         if (propPath.length === 0) {
             return;
         }
@@ -100,13 +84,8 @@ define([], function () {
         return obj[propKey];
     }
 
-
-    function deleteProp(obj, propPath) {
-        if (typeof propPath === 'string') {
-            propPath = propPath.split('.');
-        } else if (!(propPath instanceof Array)) {
-            throw new TypeError('Invalid type for key: ' + (typeof propPath));
-        }
+    function deleteProp(obj, path) {
+        const propPath = normalizePropPath(path);
         if (propPath.length === 0) {
             return false;
         }
@@ -129,16 +108,19 @@ define([], function () {
 
     class Props {
         constructor(config = {}) {
-            this.obj = config.data || {};
+            if (config.data) {
+                this.obj = Object.assign({}, config.data);
+            } else {
+                this.obj = {};
+            }
         }
 
-        getItem(props, defaultValue) {
-            return getProp(this.obj, props, defaultValue);
+        getItem(path, defaultValue) {
+            return getProp(this.obj, path, defaultValue);
         }
 
-        hasItem(propPath) {
-            return hasProp(this.obj, propPath);
-
+        hasItem(path) {
+            return hasProp(this.obj, path);
         }
 
         setItem(path, value) {

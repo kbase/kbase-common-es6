@@ -7,7 +7,6 @@ define([
     $,
     merge
 ) {
-    'use strict';
 
     class ObjectWidgetAdapter {
         constructor(config) {

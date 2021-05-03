@@ -1,5 +1,4 @@
 define([], function () {
-    'use strict';
 
     // // Custom Error Root
     // function CustomError() {

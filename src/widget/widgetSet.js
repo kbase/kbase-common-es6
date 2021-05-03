@@ -5,7 +5,6 @@ define([
     Promise,
     html
 ) {
-    'use strict';
 
     function eachArrays(arrays, fun) {
         const len = arrays[0].length;

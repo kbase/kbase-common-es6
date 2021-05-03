@@ -44,7 +44,6 @@ define([
     ajax,
     exceptions
 ) {
-    'use strict';
 
     function validJsonRpcError(error) {
         if (!error) {

@@ -3,7 +3,6 @@ define([
 ], function (
     time
 ) {
-    'use strict';
     return Object.create({}, {
         workspaceInfoToObject: {
             value: function (wsInfo) {

@@ -5,7 +5,6 @@ define([
     Promise,
     jsonRpc
 ) {
-    'use strict';
 
     class Cache {
         constructor({itemLifetime, monitoringFrequency, waiterTimeout, waiterFrequency} = {}) {
